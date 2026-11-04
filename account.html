@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account — Danko Is Thank You</title>
+<meta name="theme-color" content="#000000">
+<link rel="icon" type="image/png" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+<div class="d-cursor"></div>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="logo"><img src="images/logo-emblem.png" alt="Danko Is Thank You logo"><span class="logo-text">DAN<span>KO</span></span></a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="new-arrivals.html">New Arrivals</a>
+      <a href="collections.html">Collections</a>
+      <a href="lookbook.html">Lookbook</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-icons">
+      <button aria-label="Search" data-open-search><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button aria-label="Wishlist"><i class="fa-regular fa-heart"></i><span class="cart-count wish-count">0</span></button>
+      <button aria-label="Account"><i class="fa-regular fa-user"></i></button>
+      <button aria-label="Cart" data-open-cart><i class="fa-solid fa-bag-shopping"></i><span class="cart-count">0</span></button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu">
+  <button class="close-menu" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  <a href="index.html" class="logo"><img src="images/logo-emblem.png" alt="Danko Is Thank You logo"><span class="logo-text">DAN<span>KO</span></span></a>
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop</a>
+  <a href="new-arrivals.html">New Arrivals</a>
+  <a href="collections.html">Collections</a>
+  <a href="lookbook.html">Lookbook</a>
+  <a href="about.html">About</a>
+</div>
+
+<div class="search-overlay">
+  <button class="search-close" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+  <div class="search-box">
+    <span class="eyebrow">Search DANKO</span>
+    <input type="text" placeholder="Try 'tee', 'cap', 'garden'..." aria-label="Search products" style="margin-top:16px;">
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<!-- ================= ACCOUNT PAGE — create account / sign in. DEMO ONLY: accounts are saved in the visitor's own browser, not on a server ================= -->
+<section class="page-hero section-dark">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Account</div>
+    <span class="eyebrow">Your Account</span>
+    <h1 id="acct-title">Join Danko</h1>
+  </div>
+</section>
+
+<section class="section-dark" style="padding-top:10px;">
+  <div class="container">
+    <div class="acct-wrap">
+
+      <!-- Signed-out: create account / sign in -->
+      <div id="acct-out">
+        <div class="acct-tabs">
+          <button type="button" class="active" data-tab="signup">Create account</button>
+          <button type="button" data-tab="signin">Sign in</button>
+        </div>
+
+        <form class="acct-form acct-panel show" id="signup-form" novalidate>
+          <div class="form-row">
+            <div class="field"><label for="su-first">First Name</label><input type="text" id="su-first" autocomplete="given-name" required><span class="err">Please enter your first name.</span></div>
+            <div class="field"><label for="su-last">Last Name</label><input type="text" id="su-last" autocomplete="family-name" required><span class="err">Please enter your last name.</span></div>
+          </div>
+          <div class="field"><label for="su-email">Email</label><input type="email" id="su-email" autocomplete="email" required><span class="err" id="su-email-err">Please enter a valid email.</span></div>
+          <div class="field"><label for="su-pass">Password</label><input type="password" id="su-pass" autocomplete="new-password" required><span class="err">Use at least 8 characters.</span></div>
+          <div class="field"><label for="su-pass2">Confirm Password</label><input type="password" id="su-pass2" autocomplete="new-password" required><span class="err">Passwords do not match.</span></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Create Account</button>
+        </form>
+
+        <form class="acct-form acct-panel" id="signin-form" novalidate>
+          <div class="field"><label for="si-email">Email</label><input type="email" id="si-email" autocomplete="email" required><span class="err">Please enter a valid email.</span></div>
+          <div class="field"><label for="si-pass">Password</label><input type="password" id="si-pass" autocomplete="current-password" required><span class="err" id="si-pass-err">Please enter your password.</span></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+        </form>
+      </div>
+
+      <!-- Signed-in -->
+      <div class="acct-form" id="acct-in" style="display:none;">
+        <h3 id="acct-name" style="margin-bottom:8px;"></h3>
+        <p id="acct-email" style="margin-bottom:24px;"></p>
+        <p style="margin-bottom:26px;">Your wishlist has <strong id="acct-wish">0</strong> item(s) and your bag has <strong id="acct-bag">0</strong>.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="shop.html" class="btn btn-primary">Keep Shopping</a>
+          <button type="button" class="btn btn-ghost" id="signout-btn">Sign Out</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="newsletter-band">
+  <div class="container">
+    <span class="eyebrow">Join The List</span>
+    <h2>Get Early Access To Every Drop</h2>
+    <form class="newsletter-form">
+      <input type="email" placeholder="Enter your email" required aria-label="Email address">
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="logo"><img src="images/logo-emblem.png" alt="Danko Is Thank You logo"><span class="logo-text">DAN<span>KO</span></span></a>
+        <p class="footer-quote" style="margin-top:22px;">Danko Is Thank You.</p>
+        <div class="footer-social"><a href="https://www.instagram.com/danko_bfn?utm_source=ig_web_button_share_sheet&mdxt=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" aria-label="Instagram @danko_bfn"><i class="fa-brands fa-instagram"></i></a><a href="https://www.tiktok.com/@danko_bfn?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" aria-label="TikTok @danko_bfn"><i class="fa-brands fa-tiktok"></i></a></div>
+      </div>
+      <div><h4>Shop</h4><ul><li><a href="new-arrivals.html">New Arrivals</a></li><li><a href="collections.html">Collections</a></li></ul></div>
+      <div><h4>Customer Service</h4><ul><li><a href="contact.html">Contact Us</a></li><li><a href="returns-shipping.html">Returns &amp; Shipping</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="about.html">About DANKO</a></li><li><a href="lookbook.html">Lookbook</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Danko Is Thank You. All rights reserved.</p><div class="footer-legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="returns-shipping.html">Returns &amp; Shipping</a></div></div>
+  </div>
+</footer>
+
+<div class="overlay-dim"></div>
+<aside class="cart-drawer" aria-label="Shopping cart">
+  <div class="cart-head"><h3>Your Bag (0)</h3><button data-close-cart aria-label="Close cart"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="cart-items"></div>
+  <div class="cart-foot"><div class="cart-subtotal"><span>Subtotal</span><span>R0.00</span></div><a href="checkout.html" class="btn btn-primary" style="width:100%;">Checkout</a></div>
+</aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+  (function () {
+    const USERS = 'danko_users', CUR = 'danko_user';
+    const $ = id => document.getElementById(id);
+    const load = k => { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } };
+    async function hash(str) {
+      try {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+        return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+      } catch (e) { return btoa(unescape(encodeURIComponent(str))); }
+    }
+    function flag(fieldInput, bad) { fieldInput.closest('.field').classList.toggle('invalid', !!bad); return !bad; }
+
+    function showState() {
+      const u = load(CUR);
+      $('acct-out').style.display = u ? 'none' : '';
+      $('acct-in').style.display = u ? '' : 'none';
+      $('acct-title').textContent = u ? 'Hi, ' + u.first : 'Join Danko';
+      if (u) {
+        $('acct-name').textContent = u.first + ' ' + u.last;
+        $('acct-email').textContent = u.email;
+        $('acct-wish').textContent = DK.wishlist.length;
+        $('acct-bag').textContent = DK.cartCount();
+      }
+    }
+
+    document.querySelectorAll('.acct-tabs button').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('.acct-tabs button').forEach(b => b.classList.toggle('active', b === btn));
+      $('signup-form').classList.toggle('show', btn.dataset.tab === 'signup');
+      $('signin-form').classList.toggle('show', btn.dataset.tab === 'signin');
+    }));
+
+    $('signup-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const first = $('su-first'), last = $('su-last'), email = $('su-email'), pass = $('su-pass'), pass2 = $('su-pass2');
+      let ok = true;
+      ok = flag(first, !first.value.trim()) && ok;
+      ok = flag(last, !last.value.trim()) && ok;
+      const users = load(USERS) || [];
+      const emailVal = email.value.trim().toLowerCase();
+      const emailBad = !/^\S+@\S+\.\S+$/.test(emailVal);
+      $('su-email-err').textContent = users.some(u => u.email === emailVal) ? 'An account with this email already exists. Sign in instead.' : 'Please enter a valid email.';
+      ok = flag(email, emailBad || users.some(u => u.email === emailVal)) && ok;
+      ok = flag(pass, pass.value.length < 8) && ok;
+      ok = flag(pass2, pass2.value !== pass.value) && ok;
+      if (!ok) return;
+      const user = { first: first.value.trim(), last: last.value.trim(), email: emailVal, pass: await hash(pass.value) };
+      users.push(user);
+      localStorage.setItem(USERS, JSON.stringify(users));
+      localStorage.setItem(CUR, JSON.stringify({ first: user.first, last: user.last, email: user.email }));
+      showToast('Account created. Welcome to Danko');
+      showState();
+    });
+
+    $('signin-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const email = $('si-email'), pass = $('si-pass');
+      const emailVal = email.value.trim().toLowerCase();
+      let ok = flag(email, !/^\S+@\S+\.\S+$/.test(emailVal));
+      ok = flag(pass, !pass.value) && ok;
+      if (!ok) return;
+      const u = (load(USERS) || []).find(u => u.email === emailVal);
+      if (!u || u.pass !== await hash(pass.value)) {
+        $('si-pass-err').textContent = 'Email or password is incorrect.';
+        flag(pass, true); return;
+      }
+      localStorage.setItem(CUR, JSON.stringify({ first: u.first, last: u.last, email: u.email }));
+      showToast('Welcome back, ' + u.first);
+      showState();
+    });
+
+    $('signout-btn').addEventListener('click', () => {
+      localStorage.removeItem(CUR);
+      showToast('Signed out');
+      window.location.reload();
+    });
+    showState();
+  })();
+</script>
+</body>
+</html>

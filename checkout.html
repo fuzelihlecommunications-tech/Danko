@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — Danko Is Thank You</title>
+<meta name="theme-color" content="#000000">
+<link rel="icon" type="image/png" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<!-- Yoco on-page card field (loaded straight from Yoco, as they require) -->
+<script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
+</head>
+<body>
+
+<div class="d-cursor"></div>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header scrolled">
+  <div class="container">
+    <a href="index.html" class="logo"><img src="images/logo-emblem.png" alt="Danko Is Thank You logo"><span class="logo-text">DAN<span>KO</span></span></a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+    </nav>
+    <div class="header-icons">
+      <button aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i><span class="cart-count">0</span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= CHECKOUT — delivery form (left) and order summary (right). payment is taken securely on Yoco's page ================= -->
+<section class="section-dark" style="padding-top:150px;">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / <a href="shop.html">Shop</a> / Checkout</div>
+    <span class="eyebrow">Almost There</span>
+    <h1 style="margin-bottom:50px;">Checkout</h1>
+
+    <div class="contact-grid">
+      <form class="glass-form" id="checkout-form" novalidate>
+        <h3 style="margin-bottom:22px;">Shipping Details</h3>
+        <div class="form-row">
+          <div class="field"><label for="cfname">First Name</label><input type="text" id="cfname" required><span class="err">Required</span></div>
+          <div class="field"><label for="clname">Last Name</label><input type="text" id="clname" required><span class="err">Required</span></div>
+        </div>
+        <div class="field"><label for="cemail">Email</label><input type="email" id="cemail" required><span class="err">Enter a valid email</span></div>
+        <div class="field"><label for="cphone">Phone (for the courier)</label><input type="tel" id="cphone" required><span class="err">Required</span></div>
+        <div class="field"><label for="caddress">Address</label><input type="text" id="caddress" required><span class="err">Required</span></div>
+        <div class="form-row">
+          <div class="field"><label for="ccity">City</label><input type="text" id="ccity" required><span class="err">Required</span></div>
+          <div class="field"><label for="czip">Postal Code</label><input type="text" id="czip" required><span class="err">Required</span></div>
+        </div>
+        <h3 style="margin:30px 0 14px;">Payment</h3>
+        <p id="pay-note" style="font-family:var(--font-mono); font-size:12px; color:var(--sand); margin-bottom:18px;">Card payments are processed securely by Yoco. We never see or store your card details.</p>
+        <!-- Yoco puts its secure card field inside this box (only shown when the on-page form is active) -->
+        <div id="card-wrap" style="display:none; margin-bottom:18px;">
+          <div id="card-frame" style="background:#fff; border-radius:4px; padding:12px; min-height:60px;"></div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="pay-btn" style="width:100%; margin-top:10px;">Pay With Yoco</button>
+        <p style="font-family:var(--font-mono); font-size:10.5px; color:var(--sand); margin-top:16px;">By paying you agree to our <a href="terms.html" style="text-decoration:underline;">Terms</a> and <a href="returns-shipping.html" style="text-decoration:underline;">Returns &amp; Shipping policy</a>. No refunds; size exchanges only.</p>
+      </form>
+
+      <div>
+        <h3 style="margin-bottom:22px;">Order Summary</h3>
+        <div id="order-items" style="display:flex; flex-direction:column; gap:18px; margin-bottom:24px;"></div>
+        <div class="cart-subtotal"><span>Subtotal</span><span id="sum-subtotal">R0.00</span></div>
+        <div class="cart-subtotal"><span>Shipping</span><span id="sum-shipping">R0.00</span></div>
+        <div class="cart-subtotal" style="font-size:16px; padding-top:14px; border-top:1px solid rgba(250,248,244,.15);"><span>Total</span><span id="sum-total">R0.00</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ORDER CONFIRMATION — shown when Yoco sends the customer back after paying (checkout.html?paid=1) ================= -->
+<div id="order-confirm" style="display:none; position:fixed; inset:0; z-index:990; background:var(--black); align-items:center; justify-content:center; text-align:center; flex-direction:column; gap:20px; padding:30px;">
+  <span class="eyebrow teal">Thank You</span>
+  <h1>Order<br>Received.</h1>
+  <p>Your order is in. We'll contact you on the email and phone number you gave us about delivery.</p>
+  <a href="shop.html" class="btn btn-primary" style="margin-top:10px;">Continue Shopping</a>
+</div>
+
+<script src="js/script.js"></script>
+<!-- ================= PAGE SCRIPT — builds the order summary. Shipping fee: [EDIT: SHIPPING] ================= -->
+<script>
+  /* Builds the order summary on the right (items, subtotal, shipping, total).
+     PAYMENT — two modes, chosen automatically:
+       1) ON-PAGE (preferred): Yoco's card field appears inside this page. The
+          customer's card becomes a one-time token, which our Netlify function
+          netlify/functions/charge.js charges. Needs DK_YOCO_PUBLIC_KEY set in js/script.js.
+       2) REDIRECT (fallback): if the card field can't load, the customer is
+          sent to Yoco's own page via netlify/functions/create-checkout.js.
+     Both only work on the live Netlify site, not when opening the file from your computer. */
+  function renderOrderSummary() {
+    const wrap = document.getElementById('order-items');
+    if (!DK.cart.length) {
+      wrap.innerHTML = '<p style="font-family:var(--font-mono); font-size:12px; color:var(--sand);">Your bag is empty. <a href="shop.html" style="color:var(--orange-bright); text-decoration:underline;">Go shop something loud.</a></p>';
+    } else {
+      wrap.innerHTML = DK.cart.map(item => {
+        const p = PRODUCTS.find(p => p.id === item.id);
+        if (!p) return '';
+        return `<div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:13px;">
+          <span>${p.name} (${colorOf(p, item.color).label}, ${item.size}) × ${item.qty}</span><span>R${(p.price * item.qty).toFixed(2)}</span>
+        </div>`;
+      }).join('');
+    }
+    const subtotal = DK.cartTotal();
+    /* Shipping fee comes from js/script.js ([EDIT: SHIPPING] DK_SHIPPING_FEE). */
+    const shipping = subtotal === 0 ? 0 : DK_SHIPPING_FEE;
+    document.getElementById('sum-subtotal').textContent = 'R' + subtotal.toFixed(2);
+    document.getElementById('sum-shipping').textContent = shipping === 0 ? 'Free' : 'R' + shipping.toFixed(2);
+    document.getElementById('sum-total').textContent = 'R' + (subtotal + shipping).toFixed(2);
+  }
+  renderOrderSummary();
+
+  /* Returning from Yoco: ?paid=1 = customer finished paying, ?cancelled=1 = they backed out.
+     NOTE: ?paid=1 only decides which screen to show. The REAL proof of payment is the
+     sale appearing in your Yoco dashboard. */
+  const returnParams = new URLSearchParams(window.location.search);
+  if (returnParams.get('paid') === '1') {
+    showOrderConfirmed();
+  } else if (returnParams.get('cancelled') === '1') {
+    setTimeout(() => showToast('Payment cancelled. Your bag is still here.'), 600);
+  }
+
+  /* ---------- ON-PAGE CARD FIELD (Yoco inline SDK) ---------- */
+  let yocoInline = null;
+  function initYocoInline() {
+    const total = DK.cartTotal() + (DK.cart.length ? DK_SHIPPING_FEE : 0);
+    const keyOk = DK_YOCO_PUBLIC_KEY && !DK_YOCO_PUBLIC_KEY.includes('REPLACE');
+    if (!window.YocoSDK || !keyOk || !DK.cart.length) return;        // stay in redirect mode
+    try {
+      const sdk = new window.YocoSDK({ publicKey: DK_YOCO_PUBLIC_KEY });
+      yocoInline = sdk.inline({ layout: 'field', amountInCents: Math.round(total * 100), currency: 'ZAR' });
+      yocoInline.mount('#card-frame');
+      document.getElementById('card-wrap').style.display = 'block';
+      document.getElementById('pay-btn').textContent = 'Pay R' + total.toFixed(2);
+    } catch (err) { console.error('Yoco card field unavailable, using redirect', err); yocoInline = null; }
+  }
+  window.addEventListener('load', initYocoInline);
+
+  /* Order placed (on-page payment succeeded, or customer returned from Yoco). */
+  function showOrderConfirmed() {
+    document.getElementById('order-confirm').style.display = 'flex';
+    DK.cart = []; DK.save(); renderCart(); renderOrderSummary();
+  }
+
+  /* Submit: validate the form, then pay (on-page if possible, otherwise redirect). */
+  document.getElementById('checkout-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!DK.cart.length) { showToast('Your bag is empty'); return; }
+    let valid = true;
+    document.querySelectorAll('#checkout-form .field').forEach(field => {
+      const input = field.querySelector('input');
+      if (input.hasAttribute('required') && !input.value.trim()) { field.classList.add('invalid'); valid = false; }
+      else if (input.type === 'email' && !/^\S+@\S+\.\S+$/.test(input.value)) { field.classList.add('invalid'); valid = false; }
+      else field.classList.remove('invalid');
+    });
+    if (!valid) return;
+
+    const btn = document.getElementById('pay-btn');
+    const label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Processing…';
+    const val = id => document.getElementById(id).value.trim();
+    const payload = {
+      items: DK.cart,   // only ids / sizes / colours / quantities — the SERVER works out the prices
+      customer: {
+        name: val('cfname') + ' ' + val('clname'), email: val('cemail'), phone: val('cphone'),
+        address: val('caddress'), city: val('ccity'), postalCode: val('czip')
+      }
+    };
+    const post = (fn, body) => fetch('/.netlify/functions/' + fn, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    }).then(async r => ({ ok: r.ok, data: await r.json().catch(() => ({})) }));
+
+    try {
+      if (yocoInline) {
+        /* 1) turn the typed card into a one-time token (card number never reaches our server) */
+        const result = await yocoInline.createToken();
+        if (result.error) { showToast(result.error.message || 'Please check your card details'); btn.disabled = false; btn.textContent = label; return; }
+        /* 2) our function charges the token for the real total */
+        const r = await post('charge', Object.assign({ token: result.id }, payload));
+        if (!r.ok) { showToast(r.data.error || 'Payment failed. Please try again.'); btn.disabled = false; btn.textContent = label; return; }
+        showOrderConfirmed();
+      } else {
+        const r = await post('create-checkout', payload);
+        if (!r.ok || !r.data.redirectUrl) throw new Error(r.data.error || 'Payment could not be started');
+        window.location.href = r.data.redirectUrl;   // off to Yoco's secure page
+      }
+    } catch (err) {
+      showToast('Could not complete payment. Please try again.');
+      console.error(err);
+      btn.disabled = false; btn.textContent = label;
+    }
+  });
+</script>
+</body>
+</html>

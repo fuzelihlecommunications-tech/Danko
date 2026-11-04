@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danko Is Thank You — Streetwear That Doesn't Whisper</title>
+<meta name="description" content="Danko Is Thank You is a streetwear label from Bloemfontein, est. 2021. Shop Danko x CFX, City of Roses, Garden of Danko, Tennis Club and Danko Lifestyle tees and caps.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" type="image/png" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="d-loader" aria-hidden="true">
+  <div class="mark">DITY</div>
+  <div class="bar-track"><div class="bar"></div></div>
+  <div class="pct">0%</div>
+</div>
+
+<div id="scroll-progress"></div>
+<div class="d-cursor"></div>
+
+
+<!-- ================= HEADER / MENU BAR — logo, nav links, search, account, wishlist, bag icons ================= -->
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="logo"><img src="images/logo-emblem.png" alt="Danko Is Thank You logo"><span class="logo-text">DAN<span>KO</span></span></a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="new-arrivals.html">New Arrivals</a>
+      <a href="collections.html">Collections</a>
+      <a href="lookbook.html">Lookbook</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-icons">
+      <button aria-label="Search" data-open-search><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button aria-label="Wishlist"><i class="fa-regular fa-heart"></i><span class="cart-count wish-count">0</span></button>
+      <button aria-label="Account"><i class="fa-regular fa-user"></i></button>
+      <button aria-label="Cart" data-open-cart><i class="fa-solid fa-bag-shopping"></i><span class="cart-count">0</span></button>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= MOBILE MENU — the slide-out menu on phones (keep the links in sync with the header) ================= -->
+<div class="mobile-menu">
+  <button class="close-menu" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  <a href="index.html" class="logo"><img src="images/logo-emblem.png" alt="Danko Is Thank You logo"><span class="logo-text">DAN<span>KO</span></span></a>
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop</a>
+  <a href="new-arrivals.html">New Arrivals</a>
+  <a href="collections.html">Collections</a>
+  <a href="lookbook.html">Lookbook</a>
+  <a href="about.html">About</a>
+</div>
+
+<!-- ================= SEARCH OVERLAY — the full-screen product search (results come from js/script.js) ================= -->
+<div class="search-overlay">
+  <button class="search-close" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+  <div class="search-box">
+    <span class="eyebrow">Search DANKO</span>
+    <input type="text" placeholder="Try 'tee', 'cap', 'garden'..." aria-label="Search products" style="margin-top:16px;">
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<!-- ================= HERO — big photo + headline at the top. Photo: images/hero.jpg ================= -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="images/hero.jpg" alt="DANKO campaign hero">
+    <div class="hero-noise"></div>
+  </div>
+
+  <div class="container hero-content">
+    <span class="eyebrow">Bloemfontein · Est. 2021</span>
+    <h1 class="hero-title">
+      <span class="line"><span>DANKO IS</span></span>
+      <span class="line"><span class="accent">THANK YOU.</span></span>
+    </h1>
+    <p class="hero-sub">Tees · Caps · Est. 2021</p>
+    <div class="hero-actions">
+      <a href="shop.html" class="btn btn-primary magnetic">Shop Now</a>
+      <a href="collections.html" class="btn btn-ghost magnetic">Collections</a>
+      <a href="lookbook.html" class="btn-line">Explore Lookbook →</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="line-track"><div class="drip"></div></div>
+  </div>
+</section>
+
+<!-- ================= SCROLLING TEXT STRIP — edit the words inside the marquee-track below ================= -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Est. 2021</span><span>Danko x CFX</span><span>City of Roses</span><span>Garden of Danko</span>
+    <span>Est. 2021</span><span>Danko x CFX</span><span>City of Roses</span><span>Garden of Danko</span>
+  </div>
+</div>
+
+<!-- ================= COLLECTIONS — one card per collection (photos in images/categories/) ================= -->
+<section class="section-dark">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Shop By Category</span>
+        <h2>Shop The Collections</h2>
+      </div>
+      <p class="lede">Five collections and a headwear range, one label. Pick a line and wear the thank you.</p>
+    </div>
+  </div>
+  <div class="collections-grid">
+    <a href="shop.html?cat=Danko%20Lifestyle" class="collection-card">
+      <div class="swatch"><img src="images/categories/danko-lifestyle.jpg" alt="Danko Lifestyle"></div>
+      <div class="card-body"><span class="cat-index">01 / DANKO LIFESTYLE</span><h3>Danko Lifestyle</h3><span class="quick-shop">Shop Now <i class="fa-solid fa-arrow-right"></i></span></div>
+    </a>
+    <a href="shop.html?cat=Garden%20of%20Danko" class="collection-card">
+      <div class="swatch"><img src="images/categories/garden-of-danko.jpg" alt="Garden of Danko"></div>
+      <div class="card-body"><span class="cat-index">02 / GARDEN OF DANKO</span><h3>Garden of Danko</h3><span class="quick-shop">Shop Now <i class="fa-solid fa-arrow-right"></i></span></div>
+    </a>
+    <a href="shop.html?cat=Tennis%20Club" class="collection-card">
+      <div class="swatch"><img src="images/categories/tennis-club.jpg" alt="Tennis Club"></div>
+      <div class="card-body"><span class="cat-index">03 / TENNIS CLUB</span><h3>Tennis Club</h3><span class="quick-shop">Shop Now <i class="fa-solid fa-arrow-right"></i></span></div>
+    </a>
+    <a href="shop.html?cat=Danko%20x%20CFX" class="collection-card">
+      <div class="swatch"><img src="images/categories/danko-x-cfx.jpg" alt="Danko x CFX"></div>
+      <div class="card-body"><span class="cat-index">04 / TABA TABA KE MMALA</span><h3>Danko x CFX</h3><span class="quick-shop">Shop Now <i class="fa-solid fa-arrow-right"></i></span></div>
+    </a>
+    <a href="shop.html?cat=City%20of%20Roses" class="collection-card">
+      <div class="swatch"><img src="images/categories/city-of-roses.jpg" alt="City of Roses"></div>
+      <div class="card-body"><span class="cat-index">05 / CITY OF ROSES</span><h3>City of Roses</h3><span class="quick-shop">Shop Now <i class="fa-solid fa-arrow-right"></i></span></div>
+    </a>
+    <a href="shop.html?cat=Headwear" class="collection-card">
+      <div class="swatch"><img src="images/categories/headwear.jpg" alt="Headwear"></div>
+      <div class="card-body"><span class="cat-index">06 / HEADWEAR</span><h3>Headwear</h3><span class="quick-shop">Shop Now <i class="fa-solid fa-arrow-right"></i></span></div>
+    </a>
+  </div>
+</section>
+
+<!-- ================= FEATURED PRODUCTS — filled automatically from the PRODUCTS list (first 8). See script at bottom ================= -->
+<section class="section-ink">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><span class="eyebrow teal">The Range</span><h2>Shop The Range</h2></div>
+      <a href="shop.html" class="btn-line">View All Product →</a>
+    </div>
+    <div class="product-grid" id="featured-grid"></div>
+  </div>
+</section>
+
+<!-- ================= EDITORIAL SPLIT ================= -->
+<section class="section-dark">
+  <div class="container split">
+    <div class="art-block reveal" id="editorial-art"><img src="images/editorial.jpg" alt="DANKO editorial"></div>
+    <div class="reveal">
+      <span class="eyebrow berry">The Standard</span>
+      <h2>Made In Bloemfontein. Worn Everywhere.</h2>
+      <p style="margin:22px 0 30px;">Danko Is Thank You is a streetwear label built on gratitude, and it has been since 2021. From the Danko Lifestyle script to the City of Roses and the Garden of Danko florals, every piece carries the same message: be thankful, wear it loud.</p>
+      <a href="about.html" class="btn btn-teal magnetic">Our Story</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COLOR BLOCK CTA ================= -->
+<section class="section-orange" style="text-align:center;">
+  <div class="container">
+    <span class="eyebrow on-light">The Collab</span>
+    <h2 style="margin:16px 0 30px;">Danko x CFX Is Here</h2>
+    <a href="product.html?id=dk-13" class="btn" style="background:var(--black); color:var(--white);">Shop The Tee</a>
+  </div>
+</section>
+
+<!-- ================= NEWSLETTER SIGN-UP STRIP ================= -->
+<div class="newsletter-band">
+  <div class="container">
+    <span class="eyebrow">Join The List</span>
+    <h2>Get Early Access To Every Drop</h2>
+    <form class="newsletter-form">
+      <input type="email" placeholder="Enter your email" required aria-label="Email address">
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</div>
+
+<!-- ================= FOOTER — social links, footer menus, legal links. Same block is copied on every page ================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="logo"><img src="images/logo-emblem.png" alt="Danko Is Thank You logo"><span class="logo-text">DAN<span>KO</span></span></a>
+        <p class="footer-quote" style="margin-top:22px;">Danko Is Thank You.</p>
+        <div class="footer-social"><a href="https://www.instagram.com/danko_bfn?utm_source=ig_web_button_share_sheet&mdxt=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" aria-label="Instagram @danko_bfn"><i class="fa-brands fa-instagram"></i></a><a href="https://www.tiktok.com/@danko_bfn?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" aria-label="TikTok @danko_bfn"><i class="fa-brands fa-tiktok"></i></a></div>
+      </div>
+      <div><h4>Shop</h4><ul><li><a href="new-arrivals.html">New Arrivals</a></li><li><a href="collections.html">Collections</a></li></ul></div>
+      <div><h4>Customer Service</h4><ul><li><a href="contact.html">Contact Us</a></li><li><a href="returns-shipping.html">Returns &amp; Shipping</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="about.html">About DANKO</a></li><li><a href="lookbook.html">Lookbook</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Danko Is Thank You. All rights reserved.</p>
+      <div class="footer-legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="returns-shipping.html">Returns &amp; Shipping</a></div>
+    </div>
+  </div>
+</footer>
+
+<div class="overlay-dim"></div>
+<!-- ================= CART DRAWER — the slide-out shopping bag (filled by js/script.js) ================= -->
+<aside class="cart-drawer" aria-label="Shopping cart">
+  <div class="cart-head"><h3>Your Bag (0)</h3><button data-close-cart aria-label="Close cart"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="cart-items"></div>
+  <div class="cart-foot"><div class="cart-subtotal"><span>Subtotal</span><span>R0.00</span></div><a href="checkout.html" class="btn btn-primary" style="width:100%;">Checkout</a></div>
+</aside>
+
+<!-- ================= NEWSLETTER POPUP — wording here; delay is in js/script.js [EDIT: NEWSLETTER] ================= -->
+<div class="nl-popup-overlay">
+  <div class="nl-popup">
+    <button class="close-popup" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <span class="eyebrow">First Drop, First Look</span>
+    <h3 style="font-family:var(--font-display); text-transform:uppercase; font-size:30px; margin:16px 0;">Be First To Know</h3>
+    <p style="margin:0 auto 22px;">Join the list for early access to new drops and collections.</p>
+    <form class="newsletter-form" style="margin:0 auto;">
+      <input type="email" placeholder="Enter your email" required aria-label="Email address">
+      <button type="submit">Join</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/script.js"></script>
+<!-- ================= PAGE SCRIPT — builds the featured product grid. Change slice(0,8) to show more/fewer products ================= -->
+<script>
+  // Featured products — pulled from shared catalog
+  const featured = PRODUCTS.slice(0,8);
+  document.getElementById('featured-grid').innerHTML = featured.map(productCardHTML).join('');
+  document.dispatchEvent(new Event('danko:grid-rendered'));
+</script>
+</body>
+</html>
